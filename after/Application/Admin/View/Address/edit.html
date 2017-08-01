@@ -1,0 +1,106 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="__PUBLIC__/select-vue.js"></script>
+    <script src="__PUBLIC__/utils.js"></script>
+    <title>edit</title>
+</head>
+<body>
+<div id="body">
+    <div>
+        原始数据：
+        <pre>{{olddata}}</pre>
+    </div>
+    <div>
+        <p>修改</p>
+        <div>
+            name: <input type="text" v-model="newdata.name"><br/>
+            detail_address: <input type="text" v-model="newdata.detail_address"><br/>
+            tel: <input type="text" v-model="newdata.tel"><br/>
+            Province:
+            <select v-model="newdata.province_id">
+                <option :value="item['id']" v-for="item in province_options">
+                    {{item['id']}}--{{item['name']}}
+                </option>
+            </select><br/>
+            city:
+            <select v-model="newdata.city_id">
+                <option :value="item.id" v-for="item in city_options">
+                    {{item['id']}}--{{item['name']}}
+                </option>
+            </select><br/>
+            Area:
+            <select v-model="newdata.area_id">
+                <option :value="item.id" v-for="item in area_options">
+                    {{item['id']}}--{{item['name']}}
+                </option>
+            </select><br>
+            Member:
+            <select v-model="newdata.member_id">
+                <option :value="item.id" v-for="item in member_options">
+                    {{item['id']}}--{{item['username']}}
+                </option>
+            </select>
+
+            <button @click="submit">submit</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: "#body",
+        data: function () {
+            return {
+                olddata: {$address},
+                newdata: {},
+                province_options: [],
+                city_options: [],
+                area_options: [],
+                member_options: [],
+            }
+        },
+        mounted: function () {
+            var me = this;
+            this.newdata = json_cp(this.olddata);
+            me.init()
+        },
+        methods: {
+            init: function () {
+                var me = this;
+                $.post("{:U('Province/selectAll')}")
+                    .done(function (res) {
+                        me.province_options = JSON.parse(res);
+                    })
+                $.post("{:U('City/selectAll')}")
+                    .done(function (res) {
+                        me.city_options = JSON.parse(res);
+                    })
+                $.post("{:U('Area/selectAll')}")
+                    .done(function (res) {
+                        me.area_options = JSON.parse(res);
+                    })
+                $.post("{:U('Member/selectAll')}")
+                    .done(function (res) {
+                        me.member_options = JSON.parse(res);
+                    })
+
+            },
+            submit: function () {
+                $.post("{:U('Address/update')}", this.newdata)
+                    .done(function (res) {
+                        alert('修成功')
+                        document.location.href="{:U('Address/index')}";
+                    })
+            }
+        }
+    })
+</script>
+</body>
+</html>

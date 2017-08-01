@@ -1,0 +1,6 @@
+node_modules/
+thinkphp/
+Runtime/
+uploads/*
+test/
+

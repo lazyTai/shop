@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>index</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+<div id="body">
+    <H1>tabbar</H1>
+    <p v-for="item in alltables">
+        <a :href="'http://localhost/www.shop/admin/index.php/'+changestr(item['Tables_in_tp_shop'])+'/index'">
+            {{changestr(item['Tables_in_tp_shop'])}}</a>
+    </p>
+</div>
+<script>
+    new Vue({
+        el: '#body',
+        data: function () {
+            return {alltables: []}
+        },
+        mounted: function () {
+            this.init();
+        },
+        methods: {
+            changestr: function (str) {
+                var arr = str.substring(2, str.length).split("_");
+                for (var i = 1; i < arr.length; i++) {
+                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+                }
+                return arr.join("");
+            },
+            init: function () {
+                var me = this;
+                $.post('http://localhost/www.shop/admin/index.php/Index1/getAllTable')
+                    .done(function (res) {
+                        me.alltables = JSON.parse(res);
+                    })
+            }
+        }
+    })
+</script>
+</body>
+</html>

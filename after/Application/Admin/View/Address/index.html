@@ -1,0 +1,156 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Address</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="__PUBLIC__/select-vue.js"></script>
+    <script src="__PUBLIC__/utils.js"></script>
+</head>
+<body>
+<div id="body">
+    <H1>table-native</H1>
+    <table>
+        <tr>
+            <th v-for="item in data_native_columns">{{item['COLUMN_NAME']}}</th>
+        </tr>
+        <tr v-for="list in data_native.rows">
+            <td>{{list.id}}</td>
+            <td>{{list.name}}</td>
+            <td>{{list.province_id}}</td>
+            <td>{{list.city_id}}</td>
+            <td>{{list.area_id}}</td>
+            <td>{{list.detail_address}}</td>
+            <td>{{list.tel}}</td>
+            <td>{{list.member_id}}</td>
+        </tr>
+    </table>
+    <div>
+        <button v-for="item in data_native.total" @click="native_page1(item)">{{item}}</button>
+    </div>
+
+
+    <H1>table</H1>
+    <a href="{:U('Address/addshow')}">
+        <button>增加</button>
+    </a>
+    <table>
+        <tr>
+            <th v-for="item in columns">{{item}}</th>
+        </tr>
+        <tr v-for="list in lists">
+            <td>
+                {{list.id}}
+            </td>
+            <td>
+                <span>{{list.name}}</span>
+            </td>
+            <td>
+                <span>{{list.Province}}</span>
+            </td>
+            <td>
+                <span>{{list.City}}</span>
+            </td>
+            <td>
+                <span>{{list.Area}}</span>
+            </td>
+            <td>
+                <span>{{list.detail_address}}</span>
+            </td>
+            <td>
+                <span>{{list.tel}}</span>
+            </td>
+            <td>
+                <span>{{list.Member}}</span>
+            </td>
+            <td>
+                <button @click="remove(list)">删除</button>
+                <button @click="update(list)">修改</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+
+    new Vue({
+        el: '#body',
+        data: function () {
+            return {
+                data_native_columns: [],
+                data_native_page: {current_page: 1, page_total: 10},
+                data_native: {rows: [], total: 5},
+
+                columns: {
+                    id: 'id',
+                    name: 'name',
+                    province: '省会',
+                    city: '市',
+                    area: '区',
+                    detail_address: '具体地址',
+                    tel: '电话',
+                    member: '人员',
+                    action: '操作'
+                },
+                lists: []
+            }
+        },
+        mounted: function () {
+            this.init();
+        },
+        methods: {
+            remove: function (item) {
+                var me = this;
+                $.post("{:U('Address/delete')}", {id: item.id})
+                    .done(function (res) {
+                        me.init();
+                    })
+            },
+            update: function (item) {
+                var cond = 'id=' + item.id;
+                document.location.href = "{:U('Address/edit')}" + "?" + cond;
+            },
+            changestr: function (str) {
+                var arr = str.substring(2, str.length).split("_");
+                for (var i = 1; i < arr.length; i++) {
+                    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+                }
+                return arr.join("");
+            },
+            native_page1: function (current_page) {
+                var me = this;
+                $.post("{:U('Address/select')}", {current_page: current_page})
+                    .done(function (res) {
+                        me.data_native = JSON.parse(res);
+                    })
+            },
+            init: function () {
+                var me = this;
+                $.post("{:U('Address/getFields')}")
+                    .done(function (res) {
+                        me.data_native_columns = JSON.parse(res);
+                    })
+                $.post("{:U('Address/selectJoin')}")
+                    .done(function (res) {
+                        me.lists = JSON.parse(res);
+                    })
+                $.post("{:U('Address/select')}", {current_page: me.current_page})
+                    .done(function (res) {
+                        me.data_native = JSON.parse(res);
+                    })
+            }
+        }
+    })
+</script>
+
+<style>
+    table tr td {
+        border: 1px solid
+    }
+</style>
+</body>
+</html>

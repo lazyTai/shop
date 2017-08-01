@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>edit</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="__PUBLIC__/select-vue.js"></script>
+    <script src="__PUBLIC__/utils.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/index.css">
+</head>
+<body>
+<div id="body">
+    name: <input type="text" v-model="params.name">
+    <button @click="update">update</button>
+</div>
+
+<script>
+    new Vue({
+        el: '#body',
+        mounted: function () {
+        },
+        data: function () {
+            return {
+                all: [],
+                params: {$Area}
+            }
+        },
+        methods: {
+            update: function () {
+                $.post('{:U("Area/update")}', this.params).done(function (res) {
+                    alert('update success');
+                    document.location.href = '{:U("Area/index")}'
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>
