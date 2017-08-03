@@ -8,12 +8,14 @@
             <h1 class="title">我的购物</h1>
 
             <button class="button button-link button-nav pull-right">
-                <router-link to="/login" v-if="!$store.userinfor">
+                <router-link to="/login" v-if="!$store.state.userinfor.username">
                     登录/注册
                 </router-link>
-                <router-link to="/login" v-if="$store.userinfor">
-                    {{$store.userinfor.username}}
-                </router-link>
+                <span
+                        @click="loginout"
+                        v-if="$store.state.userinfor.username">
+                    {{$store.state.userinfor.username}}
+                </span>
             </button>
         </header>
 
@@ -35,14 +37,15 @@
                 <div class="swiper-container" data-space-between='10'>
                     <div class="swiper-wrapper">
                         <div class="swiper-slide"><img
-                                src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1n3rZHFXXXXX9XFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg"
+                                src="http://s11.mogucdn.com/mlcdn/c45406/170802_0i688619gk2e2d61cke47d3ggg6h5_750x390.jpg_800x9999.v1c7E.70.webp"
                                 alt=""></div>
                         <div class="swiper-slide"><img
-                                src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i4/TB10rkPGVXXXXXGapXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg"
+                                src="http://s2.mogucdn.com/mlcdn/c45406/170801_79fk20h90ef7bad315f7de92cjeg0_750x390.jpg_800x9999.v1c7E.70.webp"
                                 alt=""></div>
-                        <div class="swiper-slide"><img
-                                src="//gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i1/TB1kQI3HpXXXXbSXFXXXXXXXXXX_!!0-item_pic.jpg_320x320q60.jpg"
-                                alt=""></div>
+                        <div class="swiper-slide">
+                            <img
+                                    src="http://s11.mogucdn.com/mlcdn/c45406/170802_1jf6ij4162l5g1iij8hdaege4egje_750x360.jpg_800x9999.v1c7E.70.webp"
+                                    alt=""></div>
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -60,8 +63,18 @@
                                  alt="">
                         </div>
                         <div class="card-content">
-                            <div class="card-content-inner">
-                                <p class="color-gray"> 品牌：{{item.band.name}}</p>
+                            <div class="card-content-inner"
+                                 style="height: 119px;overflow: hidden"
+                            >
+                                <p class="color-gray">
+                                <div
+                                        style="width:150px;
+overflow: hidden;word-break:break-all;
+">
+                                    名字： {{item.goods_intro.name}}
+                                </div>
+
+                                </p>
                                 <p class="item-desc">
                                     {{item.goods_intro.content}}</p>
                             </div>
@@ -80,7 +93,8 @@
 </template>
 
 <script>
-    var path_goods_getall = '/Home/Goods/selectall';
+    var path_goods_getall = '/Home/Goods/select_all';
+    var path_member_loginout = '/Home/member/loginout';
     export default {
         name: 'index',
         data() {
@@ -97,7 +111,11 @@
             init: function () {
                 var me = this;
                 post1(path_goods_getall, {}, function (res) {
-                    me.goods_selectall = me.wrap_data_galleries(json_parse(res));
+                    if (json_parse(res).success) {
+                        me.goods_selectall =
+                            me.wrap_data_galleries
+                            (json_parse(res).message);
+                    }
                 })
             },
             wrap_data_galleries: function (arr) {
@@ -110,16 +128,51 @@
                 return arr;
             },
             addTocart: function (item) {
-                this.$store.commit("push_to_cart", item);
+                if (getCookie('userinfor')) {
+                    this.$store.commit("push_to_cart", item);
+                } else {
+                    dialog('亲登录', 'title', function () {
+                        return true
+                    })
+                }
+
+            },
+            loginout: function () {
+                var me = this;
+                $.dialog({
+                    content: '确定要注销',
+                    title: 'ok',
+                    ok: function () {
+                        post1(path_member_loginout, {}, function () {
+                            clearCookie('userinfor')
+                            window.timeclickclear();
+                            document.location.reload();
+                        })
+
+//                        return false;
+                    },
+                    cancel: function () {
+                    },
+                    lock: false
+                });
             }
         }
     }
 </script>
 
 <style scoped>
+    .card-footer {
+        font-size: small
+    }
+
+    .swiper-wrapper .swiper-slide {
+        width: 100%;
+        height: 200px;
+    }
+
     .swiper-wrapper .swiper-slide img {
         width: 100%;
-        height: 250px;
+        height: 100%;
     }
 
     .cards {
@@ -130,7 +183,7 @@
     }
 
     .card.demo-card-header-pic {
-        height: 211px;
+        height: 260px;
     }
 
     .card .card-cover {

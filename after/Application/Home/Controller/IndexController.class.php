@@ -1,8 +1,13 @@
 <?php
+
 namespace Home\Controller;
-use Think\Controller;
-class IndexController extends Controller {
-    public function index(){
+
+use  Common\Controller\BaseController;
+
+class IndexController extends BaseController
+{
+    public function index()
+    {
         echo 'home-hello';
     }
 }

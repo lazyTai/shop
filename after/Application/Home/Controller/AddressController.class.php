@@ -11,11 +11,13 @@ class AddressController extends BaseController
         echo 'home-AddressController';
     }
 
-    function selectallbymemberid()
+    function select_all()
     {
         $where['member_id'] = login()['id'];
         $results = m1('address')->where($where)->select();
-        echo json_string($results);
+        echo json_string(
+            $this->message(true, ($results))
+        );
     }
 
     function add()
@@ -29,7 +31,7 @@ class AddressController extends BaseController
 
     }
 
-    function selectone()
+    function select_one()
     {
         $id = params('id');
         echo json_string(
@@ -47,8 +49,10 @@ class AddressController extends BaseController
         $address->create();
         echo $address->save($where);
     }
-    function delete1(){
-        $id=params('id');
+
+    function delete1()
+    {
+        $id = params('id');
         $address = d1('address');
         $address->create();
         echo $address->delete($id);

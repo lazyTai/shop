@@ -7,10 +7,18 @@ use Think\Controller;
 class BaseController extends Controller
 {
 
+
     public function _initialize()
     {
-        $this->checkLogin();
+//        $this->checkLogin();
 
+    }
+
+    function message($success, $result)
+    {
+        $message['success'] = $success;
+        $message['message'] = $result;
+        return $message;
     }
 
     function checkLogin()
@@ -21,6 +29,7 @@ class BaseController extends Controller
             strpos(__ACTION__, 'register') ||
             strpos(__ACTION__, 'verfity') ||
             strpos(__ACTION__, 'Goods')
+
         ) {
 
         } else {

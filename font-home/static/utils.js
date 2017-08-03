@@ -3,7 +3,11 @@ function json_cp(str) {
 }
 
 function json_parse(array) {
-    return JSON.parse(array);
+    if (array) {
+        return JSON.parse(array);
+    } else {
+        return []
+    }
 }
 
 function json1(array) {
@@ -63,4 +67,23 @@ function checkCookie() {
             this.setCookie("username", user, 365);
         }
     }
+}
+
+function merge(main_arr, sec_arr) {
+    var diff = [];
+    /*
+    * find item in sec_arr(that whitout in main_arr)
+    * */
+    _.each(sec_arr, function (s_item) {
+        var isEixt = false;
+        _.each(main_arr, function (m_item) {
+            if (s_item.id == m_item.id) {
+                isEixt = true
+            }
+        })
+        if (!isEixt) {
+            diff.push(s_item)
+        }
+    })
+    return main_arr.concat(diff)
 }

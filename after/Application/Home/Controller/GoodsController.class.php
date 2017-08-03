@@ -11,7 +11,7 @@ class GoodsController extends BaseController
         parent::me()->goto1();
     }
 
-    public function selectall()
+    public function select_all()
     {
         $results = m1('goods')->select();
 //        {"id":"1","band_id":"3","goods_intro_id":"1"}
@@ -23,7 +23,7 @@ class GoodsController extends BaseController
                 m1('goods_category')->getById($item['goods_category_id']);
 
             $results[$index]['galleries'] =
-                m1('galleries')->where('goods_id='.$item['id'])
+                m1('galleries')->where('goods_id=' . $item['id'])
                     ->select()[0];
 
 
@@ -31,6 +31,6 @@ class GoodsController extends BaseController
                 m1('goods_intro')
                     ->getById($item['goods_intro_id']);
         }
-        echo json_string($results);
+        echo json_string($this->message(true, $results));
     }
 }

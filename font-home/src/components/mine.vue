@@ -9,7 +9,9 @@
                     <li class="item-content">
                         <div class="item-media"><i class="icon icon-f7"></i></div>
                         <div class="item-inner">
-                            <div class="item-title">老毛桃</div>
+                            <div class="item-title">
+                                {{userinfor.username}}
+                            </div>
                             <div class="item-after">名字</div>
                         </div>
                     </li>
@@ -23,7 +25,9 @@
                     <li class="item-content item-link">
                         <div class="item-media"><i class="icon icon-f7"></i></div>
                         <div class="item-inner">
-                            <div class="item-title">订单查看</div>
+                            <router-link to="/order">
+                                <div class="item-title">订单查看</div>
+                            </router-link>
                             <!--<div class="item-after">名字</div>-->
                         </div>
                     </li>
@@ -58,6 +62,7 @@
         name: 'mine',
         data() {
             return {
+                userinfor: {},
                 saveUrl: '',
                 deleteUrl: '',
                 showAddress: '',
@@ -93,6 +98,9 @@
             },
             handleAddressChange: function () {
             }
+        },
+        mounted: function () {
+            this.userinfor = json_parse(getCookie('userinfor'))
         }
     }
 </script>

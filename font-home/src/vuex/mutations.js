@@ -1,10 +1,13 @@
 import Vue from 'vue';
 
+var addtocart = "Home/cart/add"
+var selectcart = "Home/cart/selectcart"
 export default {
     push_to_cart(state, payload) {
-        Vue.set(payload, "num", 1);
+        // post1('addtocart',payload)
+        Vue.set(payload, "amount", 1);
         if (state.cart.length <= 0) {
-            state.cart = getCookie('cart')
+            state.cart = json_parse(getCookie('cart'));
             if (!getCookie('cart')) {
                 state.cart = [];
             }
@@ -23,12 +26,12 @@ export default {
         setCookie('cart', json_string(state.cart))
     },
     addnum: function (state, payload) {
-        payload.num++;
+        payload.amount++;
         setCookie('cart', json_string(state.cart))
     },
     downnum: function (state, payload) {
-        if (payload.num > 1) {
-            payload.num--;
+        if (payload.amount > 1) {
+            payload.amount--;
         }
         setCookie('cart', json_string(state.cart))
     },

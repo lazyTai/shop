@@ -56,7 +56,7 @@ class MemberController extends BaseController
         $data['password'] =
             params('password');
         $result = m1('member')->
-        where($data)->select();
+        where($data)->find();
 
         $message = [];
         if (!$result) {
@@ -64,10 +64,16 @@ class MemberController extends BaseController
             $message['message'] = $result;
         } else {
             $message['success'] = true;
-            $message['message'] = json_string($result);
+            $message['message'] = $result;
             setlogin($result);
         }
         echo json_string($message);
 
+    }
+
+    function loginout()
+    {
+        loginout();
+        echo 'success';
     }
 }

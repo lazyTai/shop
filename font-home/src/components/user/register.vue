@@ -2,8 +2,10 @@
     <div class="register">
         <header class="bar bar-nav">
             <a class="icon icon-left pull-left"></a>
-            <a class="icon  pull-right">login</a>
-            <h1 class="title">register</h1>
+            <a class="icon  pull-right">
+                <router-link to="/login">登录</router-link>
+            </a>
+            <h1 class="title">注册</h1>
         </header>
 
         <div class="content">
@@ -68,7 +70,10 @@
                     </li>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><i class="icon icon-form-password"></i></div>
+                            <div class="item-media">
+                                <i class="icon icon-form-password">
+
+                                </i></div>
                             <div class="item-inner">
                                 <div class="item-title label"></div>
                                 <div class="item-input">
@@ -88,8 +93,10 @@
             <div class="content-block">
                 <div class="row">
                     <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
-                    <div class="col-50"><a @click="register"
-                                           class="button button-big button-fill button-success">register</a></div>
+                    <div class="col-50">
+                        <a @click="register"
+                           class="button button-big
+button-fill button-success">注册</a></div>
                 </div>
             </div>
         </div>
@@ -109,7 +116,7 @@
                     password: '',
                     repaword: '',
                     email: '',
-                    verify:''
+                    verify: ''
                 },
                 verfiry_url: '/Home/member/verfity'
             }
@@ -123,7 +130,7 @@
                 post1(member_register, this.params, function (res) {
                     if (!json_parse(res).success) {
                         me.error = json_parse(res).message;
-                    }else{
+                    } else {
                         $.alert('注册成功，请登录');
                         me.$router.push('/login')
                     }

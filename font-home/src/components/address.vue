@@ -1,6 +1,13 @@
 <template>
     <div class="address">
         <header class="bar bar-nav">
+            <router-link to="/mine">
+                <button class="button button-link button-nav pull-left">
+                    <span class="icon icon-left"></span>
+                    返回
+                </button>
+            </router-link>
+
             <h1 class="title">地址</h1>
         </header>
 
@@ -35,7 +42,7 @@
 </template>
 
 <script>
-    var addresspath = 'Home/address/selectallbymemberid';
+    var addresspath = 'Home/address/select_all';
     var delete1 = 'Home/address/delete1';
     export default {
         name: 'address',
@@ -51,7 +58,9 @@
             init: function () {
                 var me = this;
                 post1(addresspath, function (res) {
-                    me.addresslist = json_parse(res);
+                    if (json_parse(res).success) {
+                        me.addresslist = json_parse(res).message;
+                    }
                 })
             },
             delete1: function (id) {

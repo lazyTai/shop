@@ -9,6 +9,8 @@ import cart from '@/components/cart'
 import address from '@/components/address'
 import address_add from '@/components/address/address_add'
 import address_edit from '@/components/address/address_edit'
+import order from '@/components/order'
+import order_items from '@/components/order_items'
 
 import login from '@/components/user/login'
 
@@ -65,6 +67,16 @@ export default new Router({
             path: '/login',
             name: 'login',
             component: login
-        }
+        },
+        {
+            path: '/order',
+            name: 'order',
+            component: order
+        },
+        {
+            path: '/order_items/:id',
+            name: 'order_items',
+            component: order_items
+        },
     ]
 })

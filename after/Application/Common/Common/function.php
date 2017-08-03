@@ -33,12 +33,12 @@ function json1($array = [])
 
 function json_string($array = [])
 {
-    return json_encode($array);
+    return json_encode(($array), JSON_UNESCAPED_UNICODE);
 }
 
 function json_parse($str)
 {
-    return json_decode(($str));
+    return json_decode($str);
 }
 
 function m1($classstr = null)
@@ -49,6 +49,19 @@ function m1($classstr = null)
 function d1($classstr)
 {
     return D(ucfirst(convertUnderline($classstr)));
+}
+
+function object_array($array)
+{
+    if (is_object($array)) {
+        $array = (array)$array;
+    }
+    if (is_array($array)) {
+        foreach ($array as $key => $value) {
+            $array[$key] = object_array($value);
+        }
+    }
+    return $array;
 }
 
 /*
@@ -85,4 +98,17 @@ function login()
 function setlogin($arr)
 {
     session('user_info', $arr);
+}
+
+function loginout()
+{
+    return session('user_info', null);
+}
+
+function each1($arr, $callback)
+{
+    foreach ($arr as $index => $item) {
+        $callback($index, $item, $arr);
+    }
+    return $arr;
 }

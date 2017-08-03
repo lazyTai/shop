@@ -58,7 +58,7 @@ button-fill button-success">修改</a>
 </template>
 
 <script>
-    var get_address_one = 'Home/address/selectone'
+    var get_address_one = 'Home/address/select_one'
     var update_address_one = 'Home/address/update'
 
 

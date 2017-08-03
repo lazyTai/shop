@@ -21,4 +21,9 @@ return array(
     'page_page' => 10,
     'URL_HTML_SUFFIX' => '',
 
+    'deliver'=>[
+        '1'=>'货到付款',
+        '2'=>'线上支付'
+
+    ]
 );
