@@ -1,6 +1,8 @@
+.idea
+composer.lock
+*.log
+thinkphp
+node_modules
+/node_modules
 node_modules/
-thinkphp/
-Runtime/
-uploads/*
-test/
-
+/node_modules/
