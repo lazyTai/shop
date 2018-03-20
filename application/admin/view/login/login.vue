@@ -14,33 +14,71 @@
     <div class="input">
       <div class="name form_item">
         <div class="tlabel">名字</div>
-        <input type="text" />
+        <input type="text" :value="$store.state.user.name" @input="input_name" />
       </div>
       <div class="password form_item">
         <div class="tlabel">密码</div>
-        <input type="password" />
+        <input type="password" :value="$store.state.user.password" @input="input_password" />
       </div>
-      <div class="captcha form_item">
+      <!-- <div class="captcha form_item">
         <div class="tlabel">验证码</div>
         <div class="image">
           <img src="" alt="" />
         </div>
-      </div>
+      </div> -->
       <div class="btns form_item">
-        <button>登录</button>
+        <button @click="click_login">登录</button>
         <button>注册</button>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { actionTypes } from "./vuex/store";
+import { fetch_logging } from "../util/fetch";
+var { set_user_name, set_user_password } = actionTypes;
 export default {
   data() {
     return {};
   },
+  methods: {
+    input_name(event) {
+      var self = this;
+      var { dispatch, state } = this.$store;
+      var { user } = state;
+      var input_value = event.target.value;
+      if (input_value) {
+        dispatch(set_user_name, { name: input_value });
+      }
+    },
+    input_password(event) {
+      var self = this;
+      var { dispatch, state } = this.$store;
+      var { user } = state;
+      var input_value = event.target.value;
+      if (input_value) {
+        dispatch(set_user_password, { password: input_value });
+      }
+    },
+    click_login() {
+      var self=this;
+      var { dispatch, state } = this.$store;
+      var { user } = state;
+      fetch_logging({
+        data: user,
+        success(res) {
+          var returnJson = JSON.parse(res);
+          if (returnJson["success"]) {
+            self.$router.go("/shop/public/admin/index/index");
+          } else {
+            Vue.toasted.show("密码账户出错");
+          }
+        }
+      });
+    }
+  },
   mounted() {
-    this.dom_captcha = document.querySelector("#captcha");
-    debugger;
+    // this.dom_captcha = document.querySelector("#captcha");
   }
 };
 </script>

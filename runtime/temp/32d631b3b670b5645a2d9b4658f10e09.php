@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\login\index.html";i:1521524075;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\login\index.html";i:1521525640;}*/ ?>
 <html lang="en">
 
 <head>
@@ -18,9 +18,6 @@
                 shop-admin
             </div>
         </router-view>
-        <div>
-            <img src="<?php echo captcha_src(); ?>" alt="captcha" style="display:none" id="captcha" />
-        </div>
     </div>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

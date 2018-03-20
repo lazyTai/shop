@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\index\index.html";i:1521521967;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\index\index.html";i:1521524071;}*/ ?>
 <html lang="en">
 
 <head>
@@ -19,7 +19,6 @@
                 shop-admin
             </div>
         </router-view>
-
     </div>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
