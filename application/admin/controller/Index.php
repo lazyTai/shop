@@ -8,6 +8,11 @@ class Index extends Controller
 {
     public function index()
     {
-        return $this->fetch();
+        $user= input('session.ext_user');
+        if(isset($user)){
+            return $this->fetch();
+        }else{
+            return $this->fetch('/login/index');
+        }
     }
 }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\index\index.html";i:1521521967;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpstudy\WWW\shop\public/../application/admin\view\login\index.html";i:1521524075;}*/ ?>
 <html lang="en">
 
 <head>
@@ -11,7 +11,6 @@
 
 <body>
     <script>
-        $user=<?php echo $user; ?>
     </script>
     <div id="root">
         <router-view>
@@ -19,7 +18,9 @@
                 shop-admin
             </div>
         </router-view>
-
+        <div>
+            <img src="<?php echo captcha_src(); ?>" alt="captcha" style="display:none" id="captcha" />
+        </div>
     </div>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -31,7 +32,7 @@
     <script src="/shop/public/static/js/vue.js"></script>
     <script src="/shop/public/static/js/ajax.js"></script>
     <script src="/shop/public/static/js/commons.bundle.js"></script>
-    <script src="/shop/public/static/js/admin_index/admin_index.js"></script>
+    <script src="/shop/public/static/js/admin_login/admin_login.js"></script>
     <script src="//at.alicdn.com/t/font_391938_h228rnh1pmohia4i.js"></script>
     <style>
         .icon {
