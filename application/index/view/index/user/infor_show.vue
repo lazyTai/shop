@@ -26,7 +26,7 @@
                 </yd-cell-item>
             </yd-cell-group>
             <yd-button-group>
-                <yd-button size="large" type="danger">注销</yd-button>
+                <yd-button size="large" type="danger" @click.native="unlogin">注销</yd-button>
             </yd-button-group>
         </div>
 
@@ -35,12 +35,13 @@
                 <yd-button size="small" type="primary">登录</yd-button>
             </router-link>
 
-            <yd-button size="small" type="danger" @click.native="unlogin">注销</yd-button>
+            <yd-button size="small" type="danger">注册</yd-button>
         </div>
 
     </div>
 </template>
 <script>
+import { fetch_unlogin } from "../../util/fetch";
 export default {
   data() {
     return {
@@ -48,6 +49,10 @@ export default {
     };
   },
   mounted() {
+    /* 设置用户信息 */
+    this.$dispatch(this.$actionTypes.set_user, {
+      user: $user
+    });
     if (this.$state.user.status == 0) {
       /* 没有登录 */
       this.$data.show = false;
@@ -57,7 +62,15 @@ export default {
   },
   created() {},
   methods: {
-    unlogin() {}
+    unlogin() {
+      var self = this;
+      fetch_unlogin({
+        success(res) {
+          self.$dialog.toast({ mes: res });
+          window.location.href = "/shop/public/index";
+        }
+      });
+    }
   }
 };
 </script>

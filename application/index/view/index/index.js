@@ -33,8 +33,10 @@ var router = new VueRouter({
     routes
 })
 
-new Vue({
+
+const $vm = new Vue({
     el: "#root", router, store
     // template: "<User/>",
     // components: { User },
 })
+

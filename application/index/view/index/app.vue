@@ -70,10 +70,6 @@ export default {
           self.$dispatch(set_index_lists, { index_lists: resJson });
         }
       });
-      /* 设置用户信息 */
-      this.$dispatch(this.$actionTypes.set_user, {
-        user: $user
-      });
     }
   },
   components: {}

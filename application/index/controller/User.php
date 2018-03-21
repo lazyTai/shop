@@ -15,4 +15,9 @@ class User extends Controller
        }
         return json($info);
     }
+
+    public function unlogin(){
+        session('ext_user',null);
+        return "注销成功";
+    }
 }

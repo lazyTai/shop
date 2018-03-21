@@ -1515,10 +1515,6 @@ exports.default = {
           self.$dispatch(set_index_lists, { index_lists: resJson });
         }
       });
-      /* 设置用户信息 */
-      this.$dispatch(this.$actionTypes.set_user, {
-        user: $user
-      });
     }
   },
   components: {}
@@ -2091,7 +2087,7 @@ var router = new _vueRouter2.default({
     routes: routes
 });
 
-new _vue2.default({
+var $vm = new _vue2.default({
     el: "#root", router: router, store: _store.store
     // template: "<User/>",
     // components: { User },
@@ -8079,48 +8075,8 @@ if (false) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var _fetch = __webpack_require__(3);
 
 exports.default = {
   data: function data() {
@@ -8129,6 +8085,10 @@ exports.default = {
     };
   },
   mounted: function mounted() {
+    /* 设置用户信息 */
+    this.$dispatch(this.$actionTypes.set_user, {
+      user: $user
+    });
     if (this.$state.user.status == 0) {
       /* 没有登录 */
       this.$data.show = false;
@@ -8139,9 +8099,58 @@ exports.default = {
   created: function created() {},
 
   methods: {
-    unlogin: function unlogin() {}
+    unlogin: function unlogin() {
+      var self = this;
+      (0, _fetch.fetch_unlogin)({
+        success: function success(res) {
+          self.$dialog.toast({ mes: res });
+          window.location.href = "/shop/public/index";
+        }
+      });
+    }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 64 */
@@ -8237,7 +8246,7 @@ exports = module.exports = __webpack_require__(51)(true);
 
 
 // module
-exports.push([module.i, "\n.right_group[data-v-68785328] {\r\n  padding: 30px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.right_group button[data-v-68785328] {\r\n  margin-left: 10px;\n}\n.image[data-v-68785328] {\r\n  width: 30px;\r\n  height: 30px;\n}\n.image img[data-v-68785328] {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\n}\r\n", "", {"version":3,"sources":["C:/phpStudy/WWW/shop/application/index/view/index/user/application/index/view/index/user/infor_show.vue"],"names":[],"mappings":";AAgEA;EACA,cAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;CACA;AACA;EACA,kBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;CACA","file":"infor_show.vue","sourcesContent":["<template>\r\n    <div>\r\n        <div v-if=\"show\">\r\n            <yd-cell-group>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">名字</span>\r\n                    <span slot=\"right\">{{$state.user.name}}</span>\r\n                </yd-cell-item>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">密码</span>\r\n                    <span slot=\"right\">{{$state.user.password}}</span>\r\n                </yd-cell-item>\r\n\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">地址</span>\r\n                    <span slot=\"right\">{{$state.user.address}}</span>\r\n                </yd-cell-item>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">头像</span>\r\n                    <span slot=\"right\">\r\n                        <div class=\"image\">\r\n                            <img :src=\"$state.image_url\" alt=\"\" v-if=\"$state.image_url\" />\r\n                            <img src=\"/shop/public/uploads/404.jpg\" alt=\"\" v-if=\"!$state.image_url\" />\r\n                        </div>\r\n                    </span>\r\n                </yd-cell-item>\r\n            </yd-cell-group>\r\n            <yd-button-group>\r\n                <yd-button size=\"large\" type=\"danger\">注销</yd-button>\r\n            </yd-button-group>\r\n        </div>\r\n\r\n        <div class=\"right_group\" v-if=\"!show\">\r\n            <router-link to=\"/login\">\r\n                <yd-button size=\"small\" type=\"primary\">登录</yd-button>\r\n            </router-link>\r\n\r\n            <yd-button size=\"small\" type=\"danger\" @click.native=\"unlogin\">注销</yd-button>\r\n        </div>\r\n\r\n    </div>\r\n</template>\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      show: false\r\n    };\r\n  },\r\n  mounted() {\r\n    if (this.$state.user.status == 0) {\r\n      /* 没有登录 */\r\n      this.$data.show = false;\r\n    } else {\r\n      this.$data.show = true;\r\n    }\r\n  },\r\n  created() {},\r\n  methods: {\r\n    unlogin() {}\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.right_group {\r\n  padding: 30px;\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n.right_group button {\r\n  margin-left: 10px;\r\n}\r\n.image {\r\n  width: 30px;\r\n  height: 30px;\r\n}\r\n.image img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n}\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.right_group[data-v-68785328] {\r\n  padding: 30px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\n}\n.right_group button[data-v-68785328] {\r\n  margin-left: 10px;\n}\n.image[data-v-68785328] {\r\n  width: 30px;\r\n  height: 30px;\n}\n.image img[data-v-68785328] {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\n}\r\n", "", {"version":3,"sources":["C:/phpStudy/WWW/shop/application/index/view/index/user/application/index/view/index/user/infor_show.vue"],"names":[],"mappings":";AA6EA;EACA,cAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;CACA;AACA;EACA,kBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;CACA","file":"infor_show.vue","sourcesContent":["<template>\r\n    <div>\r\n        <div v-if=\"show\">\r\n            <yd-cell-group>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">名字</span>\r\n                    <span slot=\"right\">{{$state.user.name}}</span>\r\n                </yd-cell-item>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">密码</span>\r\n                    <span slot=\"right\">{{$state.user.password}}</span>\r\n                </yd-cell-item>\r\n\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">地址</span>\r\n                    <span slot=\"right\">{{$state.user.address}}</span>\r\n                </yd-cell-item>\r\n                <yd-cell-item>\r\n                    <span slot=\"left\">头像</span>\r\n                    <span slot=\"right\">\r\n                        <div class=\"image\">\r\n                            <img :src=\"$state.image_url\" alt=\"\" v-if=\"$state.image_url\" />\r\n                            <img src=\"/shop/public/uploads/404.jpg\" alt=\"\" v-if=\"!$state.image_url\" />\r\n                        </div>\r\n                    </span>\r\n                </yd-cell-item>\r\n            </yd-cell-group>\r\n            <yd-button-group>\r\n                <yd-button size=\"large\" type=\"danger\" @click.native=\"unlogin\">注销</yd-button>\r\n            </yd-button-group>\r\n        </div>\r\n\r\n        <div class=\"right_group\" v-if=\"!show\">\r\n            <router-link to=\"/login\">\r\n                <yd-button size=\"small\" type=\"primary\">登录</yd-button>\r\n            </router-link>\r\n\r\n            <yd-button size=\"small\" type=\"danger\">注册</yd-button>\r\n        </div>\r\n\r\n    </div>\r\n</template>\r\n<script>\r\nimport { fetch_unlogin } from \"../../util/fetch\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      show: false\r\n    };\r\n  },\r\n  mounted() {\r\n    /* 设置用户信息 */\r\n    this.$dispatch(this.$actionTypes.set_user, {\r\n      user: $user\r\n    });\r\n    if (this.$state.user.status == 0) {\r\n      /* 没有登录 */\r\n      this.$data.show = false;\r\n    } else {\r\n      this.$data.show = true;\r\n    }\r\n  },\r\n  created() {},\r\n  methods: {\r\n    unlogin() {\r\n      var self = this;\r\n      fetch_unlogin({\r\n        success(res) {\r\n          self.$dialog.toast({ mes: res });\r\n          window.location.href = \"/shop/public/index\";\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.right_group {\r\n  padding: 30px;\r\n  display: flex;\r\n  justify-content: center;\r\n}\r\n.right_group button {\r\n  margin-left: 10px;\r\n}\r\n.image {\r\n  width: 30px;\r\n  height: 30px;\r\n}\r\n.image img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n}\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -8320,9 +8329,18 @@ var render = function() {
             _c(
               "yd-button-group",
               [
-                _c("yd-button", { attrs: { size: "large", type: "danger" } }, [
-                  _vm._v("注销")
-                ])
+                _c(
+                  "yd-button",
+                  {
+                    attrs: { size: "large", type: "danger" },
+                    nativeOn: {
+                      click: function($event) {
+                        return _vm.unlogin($event)
+                      }
+                    }
+                  },
+                  [_vm._v("注销")]
+                )
               ],
               1
             )
@@ -8347,18 +8365,9 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c(
-              "yd-button",
-              {
-                attrs: { size: "small", type: "danger" },
-                nativeOn: {
-                  click: function($event) {
-                    return _vm.unlogin($event)
-                  }
-                }
-              },
-              [_vm._v("注销")]
-            )
+            _c("yd-button", { attrs: { size: "small", type: "danger" } }, [
+              _vm._v("注册")
+            ])
           ],
           1
         )
