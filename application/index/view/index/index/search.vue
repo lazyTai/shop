@@ -8,14 +8,14 @@
     <yd-search v-model="value1" @input="title_input"></yd-search>
 
     <yd-cell-group>
-      <yd-cell-item>
+      <!-- <yd-cell-item>
         <span slot="left">价格</span>
         <span slot="right">
           <yd-spinner max="100" v-model="price1" @input="input_price1"></yd-spinner>
           <span class="_font">到</span>
           <yd-spinner max="100" v-model="price2" @input="input_price2"></yd-spinner>
         </span>
-      </yd-cell-item>
+      </yd-cell-item> -->
 
       <AddressPick />
 
@@ -45,30 +45,39 @@ export default {
       datetime: dateFtt("yyyy-MM-dd", new Date())
     };
   },
+  mounted() {
+    this.$dispatch(set_search_option, {
+      search_option: {
+        max_price: 0,
+        min_price: 0,
+        title: "",
+        address_sheng: "",
+        address_shi: "",
+        address_xian: "",
+        time: "",
+        s_s_x: ""
+      }
+    });
+  },
   methods: {
     click_search() {
-      var self=this;
-      if (this.$state.title == "") {
-        this.$dialog.toast({ mes: "关键字不能为空", timeout: 500 });
-      }
+      var self = this;
       fetch_good_search({
-        data: this.$state.search_option,
+        data: self.$state.search_option,
         success(res) {
           var resJson = JSON.parse(res);
           var { set_index_lists } = self.$actionTypes;
           self.$dispatch(set_index_lists, { index_lists: resJson });
-          self.$router.go(-1)
+          self.$router.go(-1);
         }
       });
     },
     title_input(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            title: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          title: value
+        }
+      });
     },
     date_callback(value) {
       if (value) {
@@ -80,22 +89,18 @@ export default {
       }
     },
     input_price1(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            min_price: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          min_price: value
+        }
+      });
     },
     input_price2(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            max_price: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          max_price: value
+        }
+      });
     }
   },
   components: {

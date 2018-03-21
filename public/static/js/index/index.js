@@ -1882,15 +1882,26 @@ exports.default = {
       datetime: (0, _util.dateFtt)("yyyy-MM-dd", new Date())
     };
   },
+  mounted: function mounted() {
+    this.$dispatch(set_search_option, {
+      search_option: {
+        max_price: 0,
+        min_price: 0,
+        title: "",
+        address_sheng: "",
+        address_shi: "",
+        address_xian: "",
+        time: "",
+        s_s_x: ""
+      }
+    });
+  },
 
   methods: {
     click_search: function click_search() {
       var self = this;
-      if (this.$state.title == "") {
-        this.$dialog.toast({ mes: "关键字不能为空", timeout: 500 });
-      }
       (0, _fetch.fetch_good_search)({
-        data: this.$state.search_option,
+        data: self.$state.search_option,
         success: function success(res) {
           var resJson = JSON.parse(res);
           var set_index_lists = self.$actionTypes.set_index_lists;
@@ -1901,13 +1912,11 @@ exports.default = {
       });
     },
     title_input: function title_input(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            title: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          title: value
+        }
+      });
     },
     date_callback: function date_callback(value) {
       if (value) {
@@ -1919,22 +1928,18 @@ exports.default = {
       }
     },
     input_price1: function input_price1(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            min_price: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          min_price: value
+        }
+      });
     },
     input_price2: function input_price2(value) {
-      if (value) {
-        this.$dispatch(set_search_option, {
-          search_option: {
-            max_price: value
-          }
-        });
-      }
+      this.$dispatch(set_search_option, {
+        search_option: {
+          max_price: value
+        }
+      });
     }
   },
   components: {
@@ -4625,7 +4630,7 @@ exports = module.exports = __webpack_require__(51)(true);
 
 
 // module
-exports.push([module.i, "\n._font[data-v-044a669f] {\r\n  position: relative;\r\n  top: -8px;\n}\r\n", "", {"version":3,"sources":["C:/phpStudy/WWW/shop/application/index/view/index/index/application/index/view/index/index/search.vue"],"names":[],"mappings":";AA0GA;EACA,mBAAA;EACA,UAAA;CACA","file":"search.vue","sourcesContent":["<template>\r\n  <yd-layout>\r\n    <yd-navbar title=\"搜索\">\r\n      <router-link to=\"/app\" slot=\"left\">\r\n        <yd-navbar-back-icon></yd-navbar-back-icon>\r\n      </router-link>\r\n    </yd-navbar>\r\n    <yd-search v-model=\"value1\" @input=\"title_input\"></yd-search>\r\n\r\n    <yd-cell-group>\r\n      <yd-cell-item>\r\n        <span slot=\"left\">价格</span>\r\n        <span slot=\"right\">\r\n          <yd-spinner max=\"100\" v-model=\"price1\" @input=\"input_price1\"></yd-spinner>\r\n          <span class=\"_font\">到</span>\r\n          <yd-spinner max=\"100\" v-model=\"price2\" @input=\"input_price2\"></yd-spinner>\r\n        </span>\r\n      </yd-cell-item>\r\n\r\n      <AddressPick />\r\n\r\n      <yd-cell-item>\r\n        <span slot=\"left\">时间之前</span>\r\n        <yd-datetime type=\"date\" slot=\"right\" v-model=\"datetime\" :callback=\"date_callback\"></yd-datetime>\r\n      </yd-cell-item>\r\n    </yd-cell-group>\r\n\r\n    <yd-button size=\"large\" type=\"primary\" @click.native=\"click_search\">搜索</yd-button>\r\n\r\n  </yd-layout>\r\n</template>\r\n<script>\r\nimport Vue from \"vue\";\r\nimport AddressPick from \"./addressPick\";\r\nimport { actionTypes } from \"../vuex/store\";\r\nimport { fetch_good_search } from \"../../util/fetch\";\r\nimport { dateFtt } from \"../../util/util\";\r\nvar { set_search_option } = actionTypes;\r\nexport default {\r\n  data() {\r\n    return {\r\n      value1: \"\",\r\n      price1: 0,\r\n      price2: 10,\r\n      datetime: dateFtt(\"yyyy-MM-dd\", new Date())\r\n    };\r\n  },\r\n  methods: {\r\n    click_search() {\r\n      var self=this;\r\n      if (this.$state.title == \"\") {\r\n        this.$dialog.toast({ mes: \"关键字不能为空\", timeout: 500 });\r\n      }\r\n      fetch_good_search({\r\n        data: this.$state.search_option,\r\n        success(res) {\r\n          var resJson = JSON.parse(res);\r\n          var { set_index_lists } = self.$actionTypes;\r\n          self.$dispatch(set_index_lists, { index_lists: resJson });\r\n          self.$router.go(-1)\r\n        }\r\n      });\r\n    },\r\n    title_input(value) {\r\n      if (value) {\r\n        this.$dispatch(set_search_option, {\r\n          search_option: {\r\n            title: value\r\n          }\r\n        });\r\n      }\r\n    },\r\n    date_callback(value) {\r\n      if (value) {\r\n        this.$dispatch(set_search_option, {\r\n          search_option: {\r\n            time: value\r\n          }\r\n        });\r\n      }\r\n    },\r\n    input_price1(value) {\r\n      if (value) {\r\n        this.$dispatch(set_search_option, {\r\n          search_option: {\r\n            min_price: value\r\n          }\r\n        });\r\n      }\r\n    },\r\n    input_price2(value) {\r\n      if (value) {\r\n        this.$dispatch(set_search_option, {\r\n          search_option: {\r\n            max_price: value\r\n          }\r\n        });\r\n      }\r\n    }\r\n  },\r\n  components: {\r\n    AddressPick\r\n  }\r\n};\r\n</script> \r\n<style  scoped>\r\n._font {\r\n  position: relative;\r\n  top: -8px;\r\n}\r\n</style>\r\n\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n._font[data-v-044a669f] {\r\n  position: relative;\r\n  top: -8px;\n}\r\n", "", {"version":3,"sources":["C:/phpStudy/WWW/shop/application/index/view/index/index/application/index/view/index/index/search.vue"],"names":[],"mappings":";AA+GA;EACA,mBAAA;EACA,UAAA;CACA","file":"search.vue","sourcesContent":["<template>\r\n  <yd-layout>\r\n    <yd-navbar title=\"搜索\">\r\n      <router-link to=\"/app\" slot=\"left\">\r\n        <yd-navbar-back-icon></yd-navbar-back-icon>\r\n      </router-link>\r\n    </yd-navbar>\r\n    <yd-search v-model=\"value1\" @input=\"title_input\"></yd-search>\r\n\r\n    <yd-cell-group>\r\n      <!-- <yd-cell-item>\r\n        <span slot=\"left\">价格</span>\r\n        <span slot=\"right\">\r\n          <yd-spinner max=\"100\" v-model=\"price1\" @input=\"input_price1\"></yd-spinner>\r\n          <span class=\"_font\">到</span>\r\n          <yd-spinner max=\"100\" v-model=\"price2\" @input=\"input_price2\"></yd-spinner>\r\n        </span>\r\n      </yd-cell-item> -->\r\n\r\n      <AddressPick />\r\n\r\n      <yd-cell-item>\r\n        <span slot=\"left\">时间之前</span>\r\n        <yd-datetime type=\"date\" slot=\"right\" v-model=\"datetime\" :callback=\"date_callback\"></yd-datetime>\r\n      </yd-cell-item>\r\n    </yd-cell-group>\r\n\r\n    <yd-button size=\"large\" type=\"primary\" @click.native=\"click_search\">搜索</yd-button>\r\n\r\n  </yd-layout>\r\n</template>\r\n<script>\r\nimport Vue from \"vue\";\r\nimport AddressPick from \"./addressPick\";\r\nimport { actionTypes } from \"../vuex/store\";\r\nimport { fetch_good_search } from \"../../util/fetch\";\r\nimport { dateFtt } from \"../../util/util\";\r\nvar { set_search_option } = actionTypes;\r\nexport default {\r\n  data() {\r\n    return {\r\n      value1: \"\",\r\n      price1: 0,\r\n      price2: 10,\r\n      datetime: dateFtt(\"yyyy-MM-dd\", new Date())\r\n    };\r\n  },\r\n  mounted() {\r\n    this.$dispatch(set_search_option, {\r\n      search_option: {\r\n        max_price: 0,\r\n        min_price: 0,\r\n        title: \"\",\r\n        address_sheng: \"\",\r\n        address_shi: \"\",\r\n        address_xian: \"\",\r\n        time: \"\",\r\n        s_s_x: \"\"\r\n      }\r\n    });\r\n  },\r\n  methods: {\r\n    click_search() {\r\n      var self = this;\r\n      fetch_good_search({\r\n        data: self.$state.search_option,\r\n        success(res) {\r\n          var resJson = JSON.parse(res);\r\n          var { set_index_lists } = self.$actionTypes;\r\n          self.$dispatch(set_index_lists, { index_lists: resJson });\r\n          self.$router.go(-1);\r\n        }\r\n      });\r\n    },\r\n    title_input(value) {\r\n      this.$dispatch(set_search_option, {\r\n        search_option: {\r\n          title: value\r\n        }\r\n      });\r\n    },\r\n    date_callback(value) {\r\n      if (value) {\r\n        this.$dispatch(set_search_option, {\r\n          search_option: {\r\n            time: value\r\n          }\r\n        });\r\n      }\r\n    },\r\n    input_price1(value) {\r\n      this.$dispatch(set_search_option, {\r\n        search_option: {\r\n          min_price: value\r\n        }\r\n      });\r\n    },\r\n    input_price2(value) {\r\n      this.$dispatch(set_search_option, {\r\n        search_option: {\r\n          max_price: value\r\n        }\r\n      });\r\n    }\r\n  },\r\n  components: {\r\n    AddressPick\r\n  }\r\n};\r\n</script> \r\n<style  scoped>\r\n._font {\r\n  position: relative;\r\n  top: -8px;\r\n}\r\n</style>\r\n\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -5228,45 +5233,6 @@ var render = function() {
       _c(
         "yd-cell-group",
         [
-          _c("yd-cell-item", [
-            _c("span", { attrs: { slot: "left" }, slot: "left" }, [
-              _vm._v("价格")
-            ]),
-            _vm._v(" "),
-            _c(
-              "span",
-              { attrs: { slot: "right" }, slot: "right" },
-              [
-                _c("yd-spinner", {
-                  attrs: { max: "100" },
-                  on: { input: _vm.input_price1 },
-                  model: {
-                    value: _vm.price1,
-                    callback: function($$v) {
-                      _vm.price1 = $$v
-                    },
-                    expression: "price1"
-                  }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "_font" }, [_vm._v("到")]),
-                _vm._v(" "),
-                _c("yd-spinner", {
-                  attrs: { max: "100" },
-                  on: { input: _vm.input_price2 },
-                  model: {
-                    value: _vm.price2,
-                    callback: function($$v) {
-                      _vm.price2 = $$v
-                    },
-                    expression: "price2"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
           _c("AddressPick"),
           _vm._v(" "),
           _c(

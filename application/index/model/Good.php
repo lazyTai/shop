@@ -19,11 +19,10 @@ class Good extends Model
     public static  function search($where){
         $sql="SELECT * FROM think_good ";
 
-        if($where['title']){
-            $sql .="WHERE title LIKE '%".$where['title']."%' ";
-        }
+        $sql .="WHERE title LIKE '%".$where['title']."%' ";
+        
         if($where['address_shi']){
-            $sql .="AND a_shi=".$where['address_shi']." ";
+            $sql .="AND a_shi='".$where['address_shi']."' ";
         }
         if($where['max_price']){
             $sql .="AND price >=".$where['min_price']." AND price<=".$where['max_price']." ";
