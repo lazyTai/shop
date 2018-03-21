@@ -22,7 +22,8 @@ class User extends Model
             ];
         }else{
             /* 修改登录状态 */
-            $user=User::get($result[0]);
+            $_user=$result[0];
+            $user=User::get($_user['id']);
             $user->status=1;
             $user->save();
             return [
@@ -31,4 +32,10 @@ class User extends Model
             ];
         }
     } 
+
+    public static function unlogin($id){
+        $user=User::get($id);
+        $user->status=0;
+        $user->save();
+    }
 }

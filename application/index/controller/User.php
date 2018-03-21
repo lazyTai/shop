@@ -17,7 +17,10 @@ class User extends Controller
     }
 
     public function unlogin(){
+        $ext_user=session('ext_user');
+        UserDao::unlogin(  $ext_user['id']);
         session('ext_user',null);
+        
         return "注销成功";
     }
 }
