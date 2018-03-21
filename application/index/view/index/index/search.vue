@@ -7,7 +7,7 @@
       <yd-cell-item>
         <span slot="left">价格</span>
         <span slot="right">
-          <yd-spinner max="100" v-model="price1"></yd-spinner>
+          <yd-spinner max="100" v-model="price1" @input="input_price1"></yd-spinner>
           <span class="_font">到</span>
           <yd-spinner max="100" v-model="price2"></yd-spinner>
         </span>
@@ -17,7 +17,7 @@
 
       <yd-cell-item>
         <span slot="left">时间之前</span>
-       <yd-datetime type="date" slot="right" v-model="datetime" ></yd-datetime>
+        <yd-datetime type="date" slot="right" v-model="datetime"></yd-datetime>
       </yd-cell-item>
     </yd-cell-group>
 
@@ -28,6 +28,8 @@
 <script>
 import Vue from "vue";
 import AddressPick from "./addressPick";
+import { actionTypes } from "../vuex/store";
+var { set_search_option } = actionTypes;
 export default {
   data() {
     return {
@@ -37,7 +39,17 @@ export default {
       datetime: ""
     };
   },
-  methods: {},
+  methods: {
+    input_price1(value) {
+      if (value) {
+        this.$dispatch(set_search_option, {
+          search_option: {
+            min_price: value
+          }
+        });
+      }
+    }
+  },
   components: {
     AddressPick
   }

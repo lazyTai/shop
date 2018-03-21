@@ -26,6 +26,7 @@ const routes = [
 var router = new VueRouter({
     routes
 })
+
 new Vue({
     el: "#root", router, store
     // template: "<User/>",
