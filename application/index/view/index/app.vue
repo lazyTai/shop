@@ -51,31 +51,6 @@
 </template>
 <script>
 import Vue from "vue";
-// import {
-//   NavBar,
-//   NavBarBackIcon,
-//   NavBarNextIcon
-// } from "vue-ydui/dist/lib.px/navbar";
-// import { Search } from "vue-ydui/dist/lib.px/search";
-// import { Layout } from "vue-ydui/dist/lib.px/layout";
-// import { TabBar, TabBarItem } from "vue-ydui/dist/lib.px/tabbar";
-// import { Icons } from "vue-ydui/dist/lib.px/icons";
-
-// import { ListTheme, ListItem, ListOther } from "vue-ydui/dist/lib.px/list";
-
-// Vue.component(Search.name, Search);
-// Vue.component(ListTheme.name, ListTheme);
-// Vue.component(ListItem.name, ListItem);
-// Vue.component(ListOther.name, ListOther);
-
-// Vue.component(Icons.name, Icons);
-// Vue.component(TabBar.name, TabBar);
-// Vue.component(TabBarItem.name, TabBarItem);
-// Vue.component(NavBar.name, NavBar);
-// Vue.component(NavBarBackIcon.name, NavBarBackIcon);
-// Vue.component(NavBarNextIcon.name, NavBarNextIcon);
-
-// Vue.component(Layout.name, Layout);
 export default {
   data() {
     return {

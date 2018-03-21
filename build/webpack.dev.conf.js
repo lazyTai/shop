@@ -43,12 +43,18 @@ let webpackConfig = {
                 include: [resolve('application')]
             },
             {
+                test: /\.less$/,
+                loader: 'style-loader!css-loader!less-loader',
+                exclude: /node_modules/
+            },
+            {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: "css-loader"
                 })
             },
+           
             // {
             //     test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
             //     loader: 'url-loader',
