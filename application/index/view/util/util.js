@@ -7,6 +7,7 @@ export function uuid() {
     });
 }
 /**************************************时间格式化处理************************************/
+"yyyy-MM-dd HH:mm:ss"
 export function dateFtt(fmt, val) { //author: meizz   
     var date = new Date(val);
     var o = {

@@ -4,16 +4,19 @@ import _ from 'underscore'
 let actionTypes = {}
 actionTypes.set_good = "set_good";
 actionTypes.set_search_option = "set_search_option";
+actionTypes.set_index_lists = "set_index_lists";
 
 const mutations = {
     [actionTypes.set_good](state, { good }) {
         state.good = good
     },
     [actionTypes.set_search_option](state, { search_option }) {
-        state.search_option = search_option
-        _.each(search_option,(item,key)=>{
-            state.search_option[key]=item
+        _.each(search_option, (item, key) => {
+            state.search_option[key] = item
         })
+    },
+    [actionTypes.set_index_lists](state, { index_lists }) {
+        state.index_lists = index_lists
     },
 }
 var actions = {}
@@ -26,6 +29,7 @@ _.each(actionTypes, (value, key) => {
 export { actionTypes };
 export const store = new Vuex.Store({
     state: {
+        index_lists: [],
         good: {
             title: "",
             desc: '',
@@ -44,9 +48,12 @@ export const store = new Vuex.Store({
             address_shi: "",
             address_xian: "",
             time: "",
+            s_s_x: "",
         }
     },
     mutations,
     actions
 })
 Vue.prototype.$dispatch = store.dispatch
+Vue.prototype.$state = store.state
+Vue.prototype.$actionTypes = actionTypes

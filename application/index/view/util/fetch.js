@@ -34,3 +34,4 @@ function _ajax(url) {
 
 }
 export const fetch_good_add = _ajax("/shop/public/index/good/add", )
+export const fetch_good_search = _ajax("/shop/public/index/good/search", )

@@ -9,8 +9,8 @@ class Index extends Controller
     public function index()
     {
         $user=session('ext_user');
-        $results= GoodDaO::read_by_create_time();
-        $this->assign('list', json_encode($results));
+        // $results= GoodDaO::read_by_create_time();
+        // $this->assign('list', json_encode($results));
         if($user){
             $this->assign('user', $user);
         }

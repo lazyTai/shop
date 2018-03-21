@@ -11,7 +11,7 @@
                 <yd-search></yd-search>
             </router-link>
             <yd-list theme="3">
-                <yd-list-item v-for="(item, key ) in list" :key="key">
+                <yd-list-item v-for="(item, key ) in $state.index_lists" :key="key">
                     <img slot="img" :src="item.image_url">
                     <span slot="title">{{item.title}}</span>
                     <yd-list-other slot="other">
@@ -51,13 +51,27 @@
 </template>
 <script>
 import Vue from "vue";
+import { fetch_good_search } from "../util/fetch";
 export default {
   data() {
-    return {
-      list: $list
-    };
+    return {};
   },
-  components: {
-  }
+  mounted() {
+    this.init();
+  },
+  methods: {
+    init() {
+      var self = this;
+      fetch_good_search({
+        data: this.$state.search_option,
+        success(res) {
+          var resJson = JSON.parse(res);
+          var { set_index_lists } = self.$actionTypes;
+          self.$dispatch(set_index_lists, { index_lists: resJson });
+        }
+      });
+    }
+  },
+  components: {}
 };
 </script>

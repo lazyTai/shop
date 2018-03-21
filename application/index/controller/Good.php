@@ -51,4 +51,12 @@ class Good extends Controller
         return json(['message'=>$infor,'success'=>true]);
     }
 
+
+    public function search(){
+        $params =input('post.');
+        $results=GoodDaO::search( $params );
+        return json(  $results);
+    }
+
+
 }

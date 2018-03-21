@@ -1,7 +1,11 @@
 <template>
   <yd-layout>
-
-    <yd-search v-model="value1"></yd-search>
+    <yd-navbar title="搜索">
+      <router-link to="/app" slot="left">
+        <yd-navbar-back-icon></yd-navbar-back-icon>
+      </router-link>
+    </yd-navbar>
+    <yd-search v-model="value1" @input="title_input"></yd-search>
 
     <yd-cell-group>
       <yd-cell-item>
@@ -9,7 +13,7 @@
         <span slot="right">
           <yd-spinner max="100" v-model="price1" @input="input_price1"></yd-spinner>
           <span class="_font">到</span>
-          <yd-spinner max="100" v-model="price2"></yd-spinner>
+          <yd-spinner max="100" v-model="price2" @input="input_price2"></yd-spinner>
         </span>
       </yd-cell-item>
 
@@ -17,11 +21,11 @@
 
       <yd-cell-item>
         <span slot="left">时间之前</span>
-        <yd-datetime type="date" slot="right" v-model="datetime"></yd-datetime>
+        <yd-datetime type="date" slot="right" v-model="datetime" :callback="date_callback"></yd-datetime>
       </yd-cell-item>
     </yd-cell-group>
 
-    <yd-button size="large" type="primary">primary</yd-button>
+    <yd-button size="large" type="primary" @click.native="click_search">搜索</yd-button>
 
   </yd-layout>
 </template>
@@ -29,22 +33,66 @@
 import Vue from "vue";
 import AddressPick from "./addressPick";
 import { actionTypes } from "../vuex/store";
+import { fetch_good_search } from "../../util/fetch";
+import { dateFtt } from "../../util/util";
 var { set_search_option } = actionTypes;
 export default {
   data() {
     return {
       value1: "",
       price1: 0,
-      price2: 0,
-      datetime: ""
+      price2: 10,
+      datetime: dateFtt("yyyy-MM-dd", new Date())
     };
   },
   methods: {
+    click_search() {
+      var self=this;
+      if (this.$state.title == "") {
+        this.$dialog.toast({ mes: "关键字不能为空", timeout: 500 });
+      }
+      fetch_good_search({
+        data: this.$state.search_option,
+        success(res) {
+          var resJson = JSON.parse(res);
+          var { set_index_lists } = self.$actionTypes;
+          self.$dispatch(set_index_lists, { index_lists: resJson });
+          self.$router.go(-1)
+        }
+      });
+    },
+    title_input(value) {
+      if (value) {
+        this.$dispatch(set_search_option, {
+          search_option: {
+            title: value
+          }
+        });
+      }
+    },
+    date_callback(value) {
+      if (value) {
+        this.$dispatch(set_search_option, {
+          search_option: {
+            time: value
+          }
+        });
+      }
+    },
     input_price1(value) {
       if (value) {
         this.$dispatch(set_search_option, {
           search_option: {
             min_price: value
+          }
+        });
+      }
+    },
+    input_price2(value) {
+      if (value) {
+        this.$dispatch(set_search_option, {
+          search_option: {
+            max_price: value
           }
         });
       }
