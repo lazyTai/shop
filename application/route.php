@@ -13,5 +13,5 @@ return [
     '__pattern__' => [
         'name' => '\w+',
     ],
-    "/" => "/huoshu/public/index",
+    "/" => "/shop/public/index",
 ];

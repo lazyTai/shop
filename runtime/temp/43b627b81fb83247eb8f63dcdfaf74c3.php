@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpStudy\WWW\shop\public/../application/index\view\index\index.html";i:1521605234;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpStudy\WWW\shop\public/../application/index\view\index\index.html";i:1521624943;}*/ ?>
 <html lang="en">
 
 <head>
@@ -12,7 +12,6 @@
 <body>
     <script>
         $user = <?php echo $user; ?> || {};
-        $list = <?php echo $list; ?>;
     </script>
     <div id="root">
         <router-view>

@@ -35,3 +35,5 @@ function _ajax(url) {
 }
 export const fetch_good_add = _ajax("/shop/public/index/good/add", )
 export const fetch_good_search = _ajax("/shop/public/index/good/search", )
+export const fetch_login = _ajax("/shop/public/index/user/login", )
+export const fetch_unlogin = _ajax("/shop/public/index/user/unlogin", )

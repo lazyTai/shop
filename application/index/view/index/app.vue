@@ -41,7 +41,7 @@
                     <yd-icon name="shopcart" slot="icon"></yd-icon>
                 </yd-tabbar-item>
 
-                <yd-tabbar-item title="个人中心" link="#">
+                <yd-tabbar-item title="个人中心" link="/user">
                     <yd-icon name="ucenter-outline" slot="icon"></yd-icon>
                 </yd-tabbar-item>
             </yd-tabbar>
@@ -69,6 +69,10 @@ export default {
           var { set_index_lists } = self.$actionTypes;
           self.$dispatch(set_index_lists, { index_lists: resJson });
         }
+      });
+      /* 设置用户信息 */
+      this.$dispatch(this.$actionTypes.set_user, {
+        user: $user
       });
     }
   },

@@ -5,6 +5,7 @@ let actionTypes = {}
 actionTypes.set_good = "set_good";
 actionTypes.set_search_option = "set_search_option";
 actionTypes.set_index_lists = "set_index_lists";
+actionTypes.set_user = "set_user";
 
 const mutations = {
     [actionTypes.set_good](state, { good }) {
@@ -17,6 +18,11 @@ const mutations = {
     },
     [actionTypes.set_index_lists](state, { index_lists }) {
         state.index_lists = index_lists
+    },
+    [actionTypes.set_user](state, { user }) {
+        _.each(user, (item, key) => {
+            state.user[key] = item
+        })
     },
 }
 var actions = {}
@@ -49,6 +55,13 @@ export const store = new Vuex.Store({
             address_xian: "",
             time: "",
             s_s_x: "",
+        },
+        user: {
+            name: '',
+            password: '',
+            address: "",
+            image_url: "",
+            status:0,// 0是没有登录。1是登录
         }
     },
     mutations,

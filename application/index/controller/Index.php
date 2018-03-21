@@ -12,9 +12,10 @@ class Index extends Controller
         // $results= GoodDaO::read_by_create_time();
         // $this->assign('list', json_encode($results));
         if($user){
-            $this->assign('user', $user);
+            $this->assign('user', json_encode($user));
+        }else{
+            $this->assign('user', json_encode([]));
         }
-        $this->assign('user', json_encode([]));
         return $this->fetch();
     }
 }
