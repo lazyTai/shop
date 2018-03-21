@@ -2,10 +2,8 @@ var path = require('path')
 
 module.exports = {
     entry: {
-        admin_index: path.resolve(__dirname,
-            '../application/admin/view/index/index.js'),
-        admin_login: path.resolve(__dirname,
-            '../application/admin/view/login/index.js'),
+        index: path.resolve(__dirname,
+            '../application/index/view/index/index.js'),
 
     },
     output: {
