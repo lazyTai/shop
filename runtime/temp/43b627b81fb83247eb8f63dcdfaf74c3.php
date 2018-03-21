@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpStudy\WWW\shop\public/../application/index\view\index\index.html";i:1521604316;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:70:"C:\phpStudy\WWW\shop\public/../application/index\view\index\index.html";i:1521605234;}*/ ?>
 <html lang="en">
 
 <head>
@@ -11,8 +11,8 @@
 
 <body>
     <script>
-        $user = <?php echo $user; ?>||{};
-        $list=<?php echo $list; ?>;
+        $user = <?php echo $user; ?> || {};
+        $list = <?php echo $list; ?>;
     </script>
     <div id="root">
         <router-view>
@@ -25,14 +25,13 @@
     <link rel="stylesheet" href="/shop/public/static/css/reset.css">
     <link rel="stylesheet" href="/shop/public/static/css/root.css">
     <script src="/shop/public/static/js/vue.js"></script>
-    <!-- 引入组件库 -->
-    <script src="/shop/public/static/vue-yui/ydui.px.js"></script>
     <script src="/shop/public/static/js/ajax.js"></script>
     <script src="/shop/public/static/js/ajaxform.js"></script>
     <script src="/shop/public/static/js/commons.bundle.js"></script>
     <script src="/shop/public/static/js/index/index.js"></script>
     <script src="//at.alicdn.com/t/font_391938_h228rnh1pmohia4i.js"></script>
-    <!-- 使用px -->
+
+    <!-- <script src="/shop/public/static/vue-yui/ydui.px.js"></script> -->
     <link rel="stylesheet" href="/shop/public/static/vue-yui/ydui.px.css">
     <style>
         /* .icon {

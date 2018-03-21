@@ -1,43 +1,53 @@
 <template>
-    <div>
-        <yd-search v-model="value1" :on-submit="submitHandler"></yd-search>
+  <yd-layout>
 
-        <yd-cell-group>
-            <yd-cell-item>
-                <span slot="left">左边内容一</span>
-                <span slot="right">右边内容一</span>
-            </yd-cell-item>
-            <yd-cell-item>
-                <span slot="left">左边内容二</span>
-                <span slot="right">右边内容二</span>
-            </yd-cell-item>
-        </yd-cell-group>
+    <yd-search v-model="value1"></yd-search>
 
-         <yd-button size="large" type="primary">primary</yd-button>
-    </div>
+    <yd-cell-group>
+      <yd-cell-item>
+        <span slot="left">价格</span>
+        <span slot="right">
+          <yd-spinner max="100" v-model="price1"></yd-spinner>
+          <span class="_font">到</span>
+          <yd-spinner max="100" v-model="price2"></yd-spinner>
+        </span>
+      </yd-cell-item>
+
+      <AddressPick />
+
+      <yd-cell-item>
+        <span slot="left">时间之前</span>
+       <yd-datetime type="date" slot="right" v-model="datetime" ></yd-datetime>
+      </yd-cell-item>
+    </yd-cell-group>
+
+    <yd-button size="large" type="primary">primary</yd-button>
+
+  </yd-layout>
 </template>
 <script>
 import Vue from "vue";
-import { Search } from "vue-ydui/dist/lib.px/search";
-import { CellGroup, CellItem } from "vue-ydui/dist/lib.px/cell";
-import {Button, ButtonGroup} from 'vue-ydui/dist/lib.px/button'; 
-
-Vue.component(Button.name, Button);
-Vue.component(ButtonGroup.name, ButtonGroup);
-Vue.component(CellGroup.name, CellGroup);
-Vue.component(CellItem.name, CellItem);
-Vue.component(Search.name, Search);
-
+import AddressPick from "./addressPick";
 export default {
   data() {
     return {
-      value1: ""
+      value1: "",
+      price1: 0,
+      price2: 0,
+      datetime: ""
     };
   },
-  methods: {
-    submitHandler(value) {
-      this.$dialog.toast({ mes: `搜索：${value}` });
-    }
+  methods: {},
+  components: {
+    AddressPick
   }
 };
-</script>
+</script> 
+<style  scoped>
+._font {
+  position: relative;
+  top: -8px;
+}
+</style>
+
+
