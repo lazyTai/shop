@@ -60,8 +60,11 @@ export const store = new Vuex.Store({
             name: '',
             password: '',
             address: "",
+            address_sheng: "",
+            address_shi: "",
+            address_xian: "",
             image_url: "",
-            status:0,// 0是没有登录。1是登录
+            status: 0,// 0是没有登录。1是登录
         }
     },
     mutations,

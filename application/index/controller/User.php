@@ -23,4 +23,17 @@ class User extends Controller
         
         return "注销成功";
     }
+
+    public function update_user(){
+        $params=input('post.');
+        $user=UserDao::get( $params['id']);
+        $user->name=$params['name'];
+        $user->password=$params['password'];
+        $user->image_url=$params['image_url'];
+        $user->address=$params['address'];
+        $infor=$user->save();
+
+        session('ext_user',$user->getData());
+        return $infor;
+    }
 }

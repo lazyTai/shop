@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
+SQLyog v10.2 
 MySQL - 5.5.53 : Database - shop
 *********************************************************************
 */
@@ -64,10 +64,15 @@ CREATE TABLE `think_user` (
   `password` varchar(100) NOT NULL,
   `image_url` varchar(100) NOT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `status` int(100) DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `think_user` */
+
+insert  into `think_user`(`id`,`name`,`password`,`image_url`,`address`,`status`,`update_time`,`create_time`) values (1,'1','1','',NULL,1,'2018-03-21 18:00:17',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
